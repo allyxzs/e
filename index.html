@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Minha Princesa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffebf3;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            margin: 20px;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: #ff66a3;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.4;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff66a3;
+            transform: rotate(45deg);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #ff66a3;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(45deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(45deg);
+            }
+        }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ffb6c1;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .flower:before, .flower:after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ffb6c1;
+            border-radius: 50%;
+        }
+
+        .flower:before {
+            top: -15px;
+            left: 0;
+        }
+
+        .flower:after {
+            top: 0;
+            left: -15px;
+        }
+
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #ffb6c1;
+            border-radius: 50%;
+        }
+
+        .petal:nth-child(1) { top: -25px; left: 7px; }
+        .petal:nth-child(2) { top: -15px; left: 25px; }
+        .petal:nth-child(3) { top: 7px; left: 30px; }
+        .petal:nth-child(4) { top: 25px; left: 15px; }
+        .petal:nth-child(5) { top: 25px; left: -5px; }
+        .petal:nth-child(6) { top: 7px; left: -20px; }
+        .petal:nth-child(7) { top: -15px; left: -15px; }
+
+        .character {
+            position: absolute;
+            z-index: 5;
+            max-width: 150px;
+            transition: transform 0.5s ease;
+        }
+
+        .character:hover {
+            transform: scale(1.1);
+        }
+
+        .hello-kitty {
+            top: 10%;
+            left: 5%;
+        }
+
+        .kuromi {
+            bottom: 10%;
+            right: 5%;
+        }
+
+        .rapunzel {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 200px;
+            opacity: 0.7;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #ff66a3;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .love-letter {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.5);
+            z-index: 100;
+            overflow-y: auto;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .love-letter h2 {
+            text-align: center;
+            color: #ff66a3;
+            margin-bottom: 20px;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .love-letter p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .love-letter .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 20px;
+            color: #ff66a3;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: #ff66a3;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        /* Posicionamento dos elementos decorativos */
+        .decoration {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Instrução para clicar */
+        .click-instruction {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff66a3;
+            font-style: italic;
+            text-align: center;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Seu Ally mandou te entregar isso</h1>
+        <p class="message">Clique em qualquer lugar para ver uma mensagem especial</p>
+    </div>
+
+    <!-- Personagens -->
+    <img src="hellokitty.png" alt="Hello Kitty" class="character hello-kitty">
+    <img src="kuromi.png" alt="Kuromi" class="character kuromi">
+    <img src="rapunzel.png" alt="Rapunzel" class="character rapunzel">
+
+    <!-- Carta de amor -->
+    <div class="love-letter" id="loveLetter">
+        <button class="close-btn">&times;</button>
+        <h2>Para Minha Princesa</h2>
+        <p>Oi minha princesa, sei que você está cansada no seu dia a dia, assim como eu. Porém, Deus me deu uma luz, uma luz que iluminou meus dias e minhas semanas ultimamente, essa luz, obviamente é você.</p>
+        
+        <p>Quero que saiba, antes de qualquer coisa, que eu vejo o seu cansaço. E ainda assim, mesmo quando a fadiga parece pesar os seus ombros, você brilha. Não é um brilho ruidoso. é um brilho gentil, constante, capaz de transformar qualquer rotina preta e branca, em um aglomerado de nebulosas deslumbrantes e cintilantes.</p>
+        
+        <p>Você é a minha luz porque ilumina os cantos onde eu já nem lembrava que havia algo para iluminar, desde o instante que você apareceu na minha vida, você se tornou o centro da minha galáxia, do meu universo. Você é tudo pra mim, eu quero que, de coração, você saiba isso.</p>
+        
+        <p>Eu sei que não é fácil. A vida exige muito muito muito e muito, e existem dias em que o corpo e a mente desabam. Nesses dias, quero ser o seu abrigo e o seu porto seguro. Quero segurar as suas mãos em noites que parecem maiores do que são, ouvir você colocar as palavras do dia para fora e guardar, com carinho, cada confissão, cada preocupação.</p>
+        
+        <p>Quero dividir as tarefas que pesam, repartir o silêncio quando ele é necessário, e transformar o tédio em pequenos momentos somente nossos. Quero ser o primeiro a celebrar suas vitórias e o ombro onde você pode, sem medo, descansar quando as derrotas chegarem. Não para resolver tudo por você, mas para caminhar junto, do seu lado, para TODO o sempre.</p>
+        
+        <p>Quando penso em futuro, não imagino grandes façanhas. Eu imagino manhãs bobas, tardes de preguiça ( como hoje mesmo ) e jantares improvisados. Eu imagino você rindo de algo que só nós entendemos, imagino nós dois ficando velhos com a mesma cumplicidade, com as mesmas piadas internas e com as mesmas canções ( eu quero muito cantar qualquer música da Taylor, Sabrina ou da Ariana ao seu lado!!! ), de vez em quando, nos lembram de que o amor também é costume, afeto repetido com intenção.</p>
+        
+        <p>Porque amar é também escolher o cuidado todos os dias, e eu escolho você, hoje e em todas as manhãs que virão. Deixe-me ser aquele que traz água quando você esquece de beber, que segura o casaco quando a noite aperta, que anota no calendário os pequenos compromissos para que a sua mente possa descansar um pouco.</p>
+        
+        <p>Deixe-me ser a pessoa que te manda uma mensagem inesperada só para lembrar que você é importante, que te envia uma foto sem motivo aparente além de dividir um instante comigo. Deixe-me cantar para você aquelas músicas que te fazem sorrir, mesmo que eu desafine um pouco ( bem PROVÁVEL, já que seu ally é um lesadinho do caramba. ) EU prometo me esforçar para você a vida toda.</p>
+        
+        <p>Se houver dias em que a insegurança bater à porta, eu estarei para dizer que você não está sozinha, pra lembrar que as nossas forças somadas são maiores do que qualquer pedra que aparecer no caminho. Você me trouxe luz quando eu menos esperava! Uma luz que não queima, mas aquece... E por isso eu agradeço a Deus por ter colocado você no meu percurso. ( meu planeta colidiu com o seu, hahaha. )</p>
+        
+        <p>Eu quero que você saiba, do fundo do meu coração, que, a minha maior felicidade, sempre será você, sempre vai ser eu acordar e saber que um dia, eu vou me casar com você, a minha maior felicidade sempre vai ser o Luka, os nossos filhos e a linda família que vamos ter.</p>
+        
+        <p>Eu encerro esta carta, prometendo a você pelo resto da minha vida, a minha companhia e o meu mais sincero e puro amor por você. Que eu possa te mostrar, não só com palavras grandiosas, mas com atitudes diárias, que você é a minha princesa, minha luz, meu porto seguro. E se algum dia você duvidar, lembra dessa frase simples que começou tudo: Deus me deu uma luz e essa luz, obviamente, é você.</p>
+        
+        <p class="signature">Com todo o meu carinho e amor por você,<br>seu príncipe.</p>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="click-instruction">Clique em qualquer lugar para ler uma carta especial</div>
+
+    <script>
+        // Criar corações flutuantes
+        function createHearts() {
+            const body = document.querySelector('body');
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart', 'decoration');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                body.appendChild(heart);
+            }
+        }
+
+        // Criar flores
+        function createFlowers() {
+            const body = document.querySelector('body');
+            for (let i = 0; i < 10; i++) {
+                const flower = document.createElement('div');
+                flower.classList.add('flower', 'decoration');
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.top = Math.random() * 100 + 'vh';
+                flower.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+                
+                // Adicionar pétalas
+                for (let j = 0; j < 7; j++) {
+                    const petal = document.createElement('div');
+                    petal.classList.add('petal');
+                    flower.appendChild(petal);
+                }
+                
+                body.appendChild(flower);
+            }
+        }
+
+        // Criar brilhos
+        function createSparkles() {
+            const body = document.querySelector('body');
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle', 'decoration');
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                body.appendChild(sparkle);
+            }
+        }
+
+        // Mostrar carta de amor
+        function showLoveLetter() {
+            document.getElementById('loveLetter').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+            document.querySelector('.container').style.opacity = '0.3';
+        }
+
+        // Fechar carta de amor
+        function closeLoveLetter() {
+            document.getElementById('loveLetter').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.querySelector('.container').style.opacity = '1';
+        }
+
+        // Inicializar elementos decorativos e eventos
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            createFlowers();
+            createSparkles();
+            
+            // Mostrar carta ao clicar no body
+            document.body.addEventListener('click', function(e) {
+                if (!document.getElementById('loveLetter').contains(e.target) && 
+                    e.target.className !== 'close-btn') {
+                    showLoveLetter();
+                }
+            });
+            
+            // Fechar carta ao clicar no botão X
+            document.querySelector('.close-btn').addEventListener('click', closeLoveLetter);
+            
+            // Fechar carta ao clicar no overlay
+            document.getElementById('overlay').addEventListener('click', closeLoveLetter);
+        });
+    </script>
+</body>
+</html>
